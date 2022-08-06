@@ -12,6 +12,7 @@
 const express = require('express');
 const aws = require('aws-sdk');
 const dotenv = require("dotenv");
+const port = process.env.PORT || 9000;
 dotenv.config({
     path:"./.env"
 })
@@ -23,8 +24,8 @@ const app = express();
 app.set('views', './views');
 app.use(express.static('./public'));
 app.engine('html', require('ejs').renderFile);
-app.listen(process.env.PORT || 9000,() => {
-    console.log("Server start at 9000");
+app.listen(port,() => {
+    console.log("Server start at "+port);
 });
 
 /*
@@ -71,7 +72,6 @@ app.get('/sign-s3', (req, res) => {
       url: `https://${S3_BUCKET}.s3.amazonaws.com/${fileName}`
     };
     res.write(JSON.stringify(returnData));
-    console.log(returnData);
     res.end();
   });
 });
